@@ -22,7 +22,7 @@ angular.module('camera', ['ionic', 'camera.controllers', 'ngCordova', 'pascalpre
     });
   })
 
-  .config(function($stateProvider, $urlRouterProvider) {
+  .config(function($stateProvider, $urlRouterProvider, $translateProvider) {
     $stateProvider
 
       .state('app', {
@@ -52,4 +52,10 @@ angular.module('camera', ['ionic', 'camera.controllers', 'ngCordova', 'pascalpre
       });
     // if none of the above states are matched, use this as the fallback
     $urlRouterProvider.otherwise('/app/home');
+
+    $translateProvider.useSanitizeValueStrategy('escape');
+    $translateProvider.useStaticFilesLoader({prefix: 'languages/', suffix: '.json'});
+    $translateProvider.registerAvailableLanguageKeys(['en', 'fr'], {'en_US': 'en', 'en_UK': 'en', 'fr_FR': 'fr', 'fr_BE': 'fr' })
+      .determinePreferredLanguage();
+    $translateProvider.use();
   });
